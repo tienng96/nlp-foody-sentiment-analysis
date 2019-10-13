@@ -20,7 +20,7 @@ class CrawlerMaster():
         user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'  # ua.random
         options.add_argument(f'user-agent={user_agent}')
         options.add_argument("window-size=1920,1080")
-        # options.add_argument('--headless')
+        options.add_argument('--headless')
         return options
 
     def create_foody_option(self):
@@ -46,4 +46,5 @@ class CrawlerMaster():
 
 if __name__ == '__main__':
     master = CrawlerMaster()
+    master.control_crawling_urls()
     master.control_crawling_urls()
