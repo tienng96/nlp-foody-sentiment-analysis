@@ -31,6 +31,7 @@ def getting_city_requirement(city_norm):
 
 def extract(index, urls, ids):
     print("Url:",urls[index])
+    print("ID:",ids[index])
     extractor = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'comment_crawler_slave.js')
     if os.path.exists(os.path.join(path_save_comment, '{}.json'.format(ids[index]))):
         print("File exists")
