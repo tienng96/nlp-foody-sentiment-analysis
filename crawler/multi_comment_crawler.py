@@ -21,15 +21,20 @@ def load_urls(path):
     with open(os.path.join(path,'urls.txt')) as input_file:
         urls = input_file.readlines()
     return urls
+
 def getting_city_requirement(city_norm):
     file_needed = []
     for file_name in os.listdir(path_url):
         if city_norm in file_name:
             file_needed.append(file_name)
     return file_needed
+
 def extract(index, urls, ids):
     print("Url:",urls[index])
     extractor = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'comment_crawler_slave.js')
+    if os.path.exists(os.path.join(path_save_comment, '{}.json'.format(ids[index]))):
+        print("File exists")
+        return
     subprocess.call('cd "%(path)s" && node "%(extractor)s" "%(url)s" "%(label)s" > "%(label)s.log" 2>&1' % {
         'path': path_save_comment,
         'extractor': extractor,
@@ -37,6 +42,7 @@ def extract(index, urls, ids):
         'label': ids[index]
     }, shell=True)
     print("Extract success url...")
+
 def get_url_by_city(city,path_file):
     city_norm = utils.convert_to_nosymbol(city)
     city_csv = getting_city_requirement(city_norm)
@@ -56,13 +62,14 @@ def get_url_by_city(city,path_file):
     else:
         print("None extracted from {}...".format(city))
     return urls,ids
+
 def main():
     print('Crawling ...')
     total_urls = 0
     for city in options.Location.city:
         urls, ids = get_url_by_city(city, path_url)
         total_urls += len(urls)
-        #     pool = mp.Pool(processes=len(urls))
+        #     pool = mp.Pool(processes=len(urls)
         pool = multiprocessing.Pool(processes=10)
         #     pool.map_async(extract, range(len(urls))) #len(extractor.urls)
         pool.map(partial(extract, urls=urls, ids=ids), range(len(urls)))
