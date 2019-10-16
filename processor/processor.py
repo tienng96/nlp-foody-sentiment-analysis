@@ -13,6 +13,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 import argparse
+from imblearn.under_sampling import NearMiss
 path_json = '../data/raw_data'
 comment_score = {'comment':[]}
 def process_comment_score(data_comment,comment_score):
@@ -95,5 +96,12 @@ if __name__ == '__main__':
     # TF-IDF
     X_comment = vectorize(reviews)
     X_label = df['score'].values
-
-    train.train(X_comment,X_label)
+    print("Number comment POS:",len(df[df['score'] == 1]))
+    print("Number comment NEG:", len(df[df['score'] == 0]))
+    X_label = X_label.astype(int)
+    # Handling imbalanced Data - Under sampling
+    nm = NearMiss()
+    X_res,Y_res = nm.fit_sample(X_comment,X_label)
+    print("comment_process_balanced:",X_res.shape)
+    print("score_process_balanced:",Y_res.shape)
+    train.train(X_res,Y_res)
