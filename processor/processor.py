@@ -47,17 +47,15 @@ def tokenize(text, stopwords):
     text_segmented = ViTokenizer.tokenize(text).split()
     text_segmented = [elem for elem in text_segmented if elem not in stopwords]
     return ' '.join(text_segmented)
-print(os.getcwd())
+
 def vectorize(reviews):
     if args.is_first == 1:
-        print("---------")
         vectorizer = TfidfVectorizer(min_df=5,max_features=50000, sublinear_tf=True)
         vectorizer.fit(reviews)
         pickle_out = open("../model/vectorizer.pickle", "wb")
         pickle.dump(vectorizer, pickle_out)
         pickle_out.close()
     else:
-        print('131231231')
         with open(r"../model/vectorizer.pickle","rb") as input_file:
             vectorizer = pickle.load(input_file)
     X_array = vectorizer.transform(reviews).toarray()
@@ -80,6 +78,7 @@ if __name__ == '__main__':
     df = pd.DataFrame(data)
     df = df[df.score.isnull() == False].reset_index(drop=True)
     df = processor_score(df)
+    print("Number_comment:",len(df['comment'].values))
 
     with open("/home/hieuvt/Projects/Crawl_comments/vietnamese-stopwords-dash.txt", encoding="utf8") as input_file:
         x = input_file.readlines()
