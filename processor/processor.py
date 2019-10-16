@@ -80,7 +80,7 @@ if __name__ == '__main__':
     df = processor_score(df)
     print("Number_comment:",len(df['comment'].values))
 
-    with open("/home/hieuvt/Projects/Crawl_comments/vietnamese-stopwords-dash.txt", encoding="utf8") as input_file:
+    with open("./vietnamese-stopwords-dash.txt", encoding="utf8") as input_file:
         x = input_file.readlines()
         removetable = str.maketrans('', '', '\n')
         stopwords = [s.translate(removetable) for s in x]
