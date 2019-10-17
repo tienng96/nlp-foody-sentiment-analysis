@@ -79,7 +79,9 @@ if __name__ == '__main__':
     data_comment = {'comment':[],'score':[]}
     data = process_comment_score(data_comment,comment_score)
     df = pd.DataFrame(data)
+    print("Before:",df.shape)
     df = df[df.score.isnull() == False].reset_index(drop=True)
+    print("After:",df.shape)
     df = processor_score(df)
     print("Number_comment:",len(df['comment'].values))
     print("Processing stopwords...")
