@@ -104,7 +104,7 @@ if __name__ == '__main__':
     print('Save file csv...')
     with open('../data/comment_processing.csv','w') as out_file:
         writer = csv.writer(out_file)
-        # writer.writerow(('comment','score'))
+        writer.writerow(('comment','score'))
         for text in reviews:
             row = [c.strip() for c in text.strip(', ').split(',')]
             writer.writerow(row)

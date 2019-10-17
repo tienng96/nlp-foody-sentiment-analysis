@@ -7,6 +7,7 @@ from imblearn.under_sampling import NearMiss
 import numpy as np
 from train import train
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
 
 def vectorize(reviews):
     if args.is_first == 1:
@@ -27,14 +28,14 @@ if __name__ == '__main__':
     parser.add_argument('-first', dest='is_first', type=int, help='dump_file_pickle')
     args = parser.parse_args()
     # Load file csv
-    X_comment = []
-    X_label = []
+    # X_comment = []
+    # X_label = []
     print("Load file csv...")
-    with open('../data/comment_processing.csv', 'r') as input_file:
-        reader_file = csv.reader(input_file)
-        for row in reader_file:
-            X_comment.append(row[0])
-            X_label.append(row[1])
+    # with open('../data/comment_processing.csv', 'r') as input_file:
+    #     reader_file = csv.reader(input_file)
+    df = pd.read_csv('../data/comment_processing.csv')
+    X_comment = df['comment'].values
+    X_label = df['score'].values
     # TF-IDF
     print("Caculate TF-IDF...")
     X_comment = vectorize(X_comment)
