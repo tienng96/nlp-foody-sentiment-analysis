@@ -12,8 +12,8 @@ def train(X_comment, X_label):
     # Train SVC
     # clf = svm.SVC(verbose=True, kernel='linear', probability=True, random_state=0, cache_size=2000,
     #               class_weight='balanced')
-    # clf = LinearSVC(fit_intercept=True, multi_class='crammer_singer', C=1)
-    clf = SVC(kernel='linear', C=0.2175, class_weight=None, verbose=True)
+    clf = LinearSVC(fit_intercept=True, multi_class='crammer_singer', C=1)
+    # clf = SVC(kernel='linear', C=0.2175, class_weight=None, verbose=True)
     clf.fit(X_train, Y_train)
     # print(clf.n_support_)
     print("=========VALIDATE_TRAIN===========")
