@@ -40,13 +40,23 @@ if __name__ == '__main__':
     print("Caculate TF-IDF...")
     X_comment = vectorize(X_comment)
     X_label = X_label
-
+    print("Number comment POS:", len(df[df['score'] == 1]))
+    print("Number comment NEG:", len(df[df['score'] == 0]))
     # Handling imbalanced Data - Under sampling
     print("Handling imbalanced Data - Under sampling")
     X_label = np.asarray(X_label)
-    X_comment = np.asarray(X_comment)
-    nm = NearMiss(random_state=42)
-    X_res, Y_res = nm.fit_sample(X_comment, X_label)
+    # X_comment = np.asarray(X_comment)
+
+    nr = NearMiss()
+    X_res, Y_res = nr.fit_sample(X_comment, X_label)
     print("comment_process_balanced:", X_res.shape)
     print("score_process_balanced:", Y_res.shape)
-    train(X_res,Y_res)
+
+    pickle_out = open("../model/vectorizer_comment.pickle", "wb")
+    pickle.dump(X_res, pickle_out)
+    pickle_out.close()
+
+    pickle_out = open("../model/vectorizer_score.pickle", "wb")
+    pickle.dump(Y_res, pickle_out)
+    pickle_out.close()
+    # train(X_res,Y_res)
