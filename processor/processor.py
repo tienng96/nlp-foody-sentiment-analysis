@@ -13,6 +13,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 import argparse
+import csv
 from imblearn.under_sampling import NearMiss
 path_json = '../data/raw_data'
 comment_score = {'comment':[]}
@@ -87,12 +88,30 @@ if __name__ == '__main__':
         stopwords = [s.translate(removetable) for s in x]
 
     reviews = []
-    score_comment = []
+    # score_comment = []
 
     for i, text in enumerate(df['comment']):
-        #     score_comment.append(text['score'])
+        # score_comment.append(text['score'])
         text_processing = prepocess(text)
-        reviews.append(tokenize(text_processing, stopwords))
+        temp_text = tokenize(text_processing, stopwords)
+        reviews.append(temp_text)
+    for i, score in enumerate(df['score']):
+        reviews[i] = reviews[i] + ',' + '{}'.format(score)
+    #Write file csv
+    with open('../data/comment_processing.csv','w') as out_file:
+        writer = csv.writer(out_file)
+        writer.writerow(('comment','score'))
+        for text in reviews:
+            row = [c.strip() for c in text.strip(', ').split(',')]
+            writer.writerow(row)
+    #Load file csv
+    X_comment = []
+    X_label = []
+    with open('../data/comment_processing.csv','r') as input_file:
+        reader_file = csv.reader(input_file)
+        for row in reader_file:
+            X_comment.append(row[0])
+            X_label.append(row[1])
     # TF-IDF
     X_comment = vectorize(reviews)
     X_label = df['score'].values
