@@ -34,6 +34,9 @@ if __name__ == '__main__':
     # with open('../data/comment_processing.csv', 'r') as input_file:
     #     reader_file = csv.reader(input_file)
     df = pd.read_csv('../data/comment_processing.csv')
+    print("Before:",df.shape)
+    df = df[df.score.isnull() == False].reset_index(drop=True)
+    print("After:", df.shape)
     X_comment = df['comment'].values
     X_label = df['score'].values
     print("======",df.isnull().values.any())
