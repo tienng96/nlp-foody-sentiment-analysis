@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.metrics import precision_recall_fscore_support as score
 from sklearn.svm import LinearSVC
+from sklearn.metrics import accuracy_score
 def train(X_comment, X_label):
     # Train_test_split
     X_train, X_test, Y_train, Y_test = train_test_split(X_comment, X_label, test_size=0.2, random_state=42)
@@ -17,8 +18,11 @@ def train(X_comment, X_label):
     Y_pred = clf.predict(X_test)
     Y_test = Y_test.astype(int)
     precision, recall, fscore, support = score(Y_test, Y_pred)
-
+    #Danh gia F1-score:
+    print("=========F1_score=========")
     print('precision: {}'.format(precision))
     print('recall: {}'.format(recall))
     print('fscore: {}'.format(fscore))
     print('support: {}'.format(support))
+    print("=========Accuracy=========")
+    print('accuracy = ', accuracy_score(Y_test, Y_pred))
