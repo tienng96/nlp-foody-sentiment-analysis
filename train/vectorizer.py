@@ -19,7 +19,7 @@ def vectorize(reviews):
     else:
         with open(r"../model/vectorizer.pickle","rb") as input_file:
             vectorizer = pickle.load(input_file)
-    X_array = vectorizer.transform(reviews).toarray()
+    X_array = vectorizer.transform(reviews)#.toarray()
     print("X_array.shape:",X_array.shape)
     return X_array
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # TF-IDF
     print("Caculate TF-IDF...")
     X_comment = vectorize(X_comment)
-    X_label = X_label
+    print("Type X_comment:",type(X_comment))
     print("Number comment POS:", len(df[df['score'] == 1]))
     print("Number comment NEG:", len(df[df['score'] == 0]))
     # Handling imbalanced Data - Under sampling
