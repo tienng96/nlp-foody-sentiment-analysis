@@ -14,15 +14,26 @@ def train(X_comment, X_label):
     clf = LinearSVC(fit_intercept=True, multi_class='crammer_singer', C=1)
     clf.fit(X_train, Y_train)
     # print(clf.n_support_)
-
-    Y_pred = clf.predict(X_test)
-    Y_test = Y_test.astype(int)
-    precision, recall, fscore, support = score(Y_test, Y_pred)
-    #Danh gia F1-score:
-    print("=========F1_score=========")
+    print("=========VALIDATE_TRAIN===========")
+    X_pred = clf.predict(X_train)
+    Y_train = Y_train.astype(int)
+    precision, recall, fscore, support = score(Y_train, X_pred)
     print('precision: {}'.format(precision))
     print('recall: {}'.format(recall))
     print('fscore: {}'.format(fscore))
     print('support: {}'.format(support))
-    print("=========Accuracy=========")
+    print('accuracy = ', accuracy_score(X_pred, Y_train))
+
+
+
+    # precision, recall, fscore, support = score(Y_test, Y_pred)
+    print("=========VALIDATE_TEST===========")
+    Y_pred = clf.predict(X_test)
+    Y_test = Y_test.astype(int)
+    precision, recall, fscore, support = score(Y_test, Y_pred)
+    #Danh gia F1-score:
+    print('precision: {}'.format(precision))
+    print('recall: {}'.format(recall))
+    print('fscore: {}'.format(fscore))
+    print('support: {}'.format(support))
     print('accuracy = ', accuracy_score(Y_test, Y_pred))
