@@ -36,6 +36,8 @@ if __name__ == '__main__':
     df = pd.read_csv('../data/comment_processing.csv')
     X_comment = df['comment'].values
     X_label = df['score'].values
+    print("======",df.isnull().values.any())
+    print("======",df.isnull().sum())
     # TF-IDF
     print("Caculate TF-IDF...")
     X_comment = vectorize(X_comment)
