@@ -3,6 +3,7 @@ from sklearn import svm
 from sklearn.metrics import precision_recall_fscore_support as score
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
+from sklearn.svm import SVC
 def train(X_comment, X_label):
     # Train_test_split
     X_train, X_test, Y_train, Y_test = train_test_split(X_comment, X_label, test_size=0.2, random_state=42)
@@ -11,7 +12,8 @@ def train(X_comment, X_label):
     # Train SVC
     # clf = svm.SVC(verbose=True, kernel='linear', probability=True, random_state=0, cache_size=2000,
     #               class_weight='balanced')
-    clf = LinearSVC(fit_intercept=True, multi_class='crammer_singer', C=1)
+    # clf = LinearSVC(fit_intercept=True, multi_class='crammer_singer', C=1)
+    clf = SVC(kernel='linear', C=0.2175, class_weight=None, verbose=True)
     clf.fit(X_train, Y_train)
     # print(clf.n_support_)
     print("=========VALIDATE_TRAIN===========")
