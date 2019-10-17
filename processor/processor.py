@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 import argparse
 import csv
+from tqdm import tqdm
 from imblearn.under_sampling import NearMiss
 path_json = '../data/raw_data'
 comment_score = {'comment':[]}
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     reviews = []
     # score_comment = []
 
-    for i, text in enumerate(df['comment']):
+    for i, text in tqdm(enumerate(df['comment'])):
         # score_comment.append(text['score'])
         text_processing = prepocess(text)
         temp_text = tokenize(text_processing, stopwords)
