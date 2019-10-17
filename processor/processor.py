@@ -100,7 +100,7 @@ if __name__ == '__main__':
     #Write file csv
     with open('../data/comment_processing.csv','w') as out_file:
         writer = csv.writer(out_file)
-        writer.writerow(('comment','score'))
+        # writer.writerow(('comment','score'))
         for text in reviews:
             row = [c.strip() for c in text.strip(', ').split(',')]
             writer.writerow(row)
@@ -113,13 +113,14 @@ if __name__ == '__main__':
             X_comment.append(row[0])
             X_label.append(row[1])
     # TF-IDF
-    X_comment = vectorize(reviews)
-    X_label = df['score'].values
+    X_comment = vectorize(X_comment)
+    X_label = X_label
     print("Number comment POS:",len(df[df['score'] == 1]))
     print("Number comment NEG:", len(df[df['score'] == 0]))
-    X_label = X_label.astype(int)
     # Handling imbalanced Data - Under sampling
-    nm = NearMiss()
+    X_label = np.asarray(X_label)
+    X_comment = np.asarray(X_comment)
+    nm = NearMiss(random_state=42)
     X_res,Y_res = nm.fit_sample(X_comment,X_label)
     print("comment_process_balanced:",X_res.shape)
     print("score_process_balanced:",Y_res.shape)
