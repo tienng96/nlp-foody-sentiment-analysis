@@ -5,7 +5,7 @@ class Location:
             'Nghệ An', 'Ninh Bình', 'Ninh Thuận', 'Phú Quốc', 'Phú Thọ', 'Phú Yên', 'Quảng Bình', 'Quảng Nam', 'Quảng Ngãi', 'Quảng Ninh',
             'Quảng Trị', 'Sóc Trăng', 'Sơn La', 'TP. HCM', 'Thanh Hoá', 'Thái Bình', 'Thái Nguyên', 'Tiền Giang', 'Trà Vinh', 'Tuyên Quang',
             'Tây Ninh', 'Vĩnh Long', 'Vĩnh Phúc', 'Vũng Tàu', 'Yên Bái', 'Điện Biên', 'Đà Nẵng', 'Đắk Lắk', 'Đắk Nông', 'Đồng Nai', 'Đồng Tháp']
-
+    # city = ['Hà Nội', 'TP. HCM', 'Đà Nẵng']
     # distric = []
 
 class Option:
